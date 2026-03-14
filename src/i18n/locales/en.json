@@ -1,0 +1,24 @@
+{
+  "auth": {
+    "welcome": "Welcome to Croatian Grammar",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithApple": "Sign in with Apple",
+    "selectLanguage": "Select your native language",
+    "continue": "Continue"
+  },
+  "languages": {
+    "russian": "Русский",
+    "ukrainian": "Українська",
+    "english": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "exercises": "Exercises",
+    "profile": "Profile"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry"
+  }
+}

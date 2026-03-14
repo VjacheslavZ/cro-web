@@ -1,0 +1,24 @@
+{
+  "auth": {
+    "welcome": "Ласкаво просимо до Croatian Grammar",
+    "signInWithGoogle": "Увійти через Google",
+    "signInWithApple": "Увійти через Apple",
+    "selectLanguage": "Оберіть вашу рідну мову",
+    "continue": "Продовжити"
+  },
+  "languages": {
+    "russian": "Русский",
+    "ukrainian": "Українська",
+    "english": "English"
+  },
+  "nav": {
+    "home": "Головна",
+    "exercises": "Вправи",
+    "profile": "Профіль"
+  },
+  "common": {
+    "loading": "Завантаження...",
+    "error": "Сталася помилка",
+    "retry": "Повторити"
+  }
+}
