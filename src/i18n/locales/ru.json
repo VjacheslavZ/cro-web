@@ -4,7 +4,8 @@
     "signInWithGoogle": "Войти через Google",
     "signInWithApple": "Войти через Apple",
     "selectLanguage": "Выберите ваш родной язык",
-    "continue": "Продолжить"
+    "continue": "Продолжить",
+    "loginFailed": "Ошибка входа. Попробуйте снова."
   },
   "languages": {
     "russian": "Русский",

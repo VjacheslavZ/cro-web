@@ -4,7 +4,8 @@
     "signInWithGoogle": "Sign in with Google",
     "signInWithApple": "Sign in with Apple",
     "selectLanguage": "Select your native language",
-    "continue": "Continue"
+    "continue": "Continue",
+    "loginFailed": "Login failed. Please try again."
   },
   "languages": {
     "russian": "Русский",
