@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Box, Container, Typography, Link, IconButton, Stack } from '@mui/material';
+
 import { XIcon, YouTubeIcon, FacebookIcon, GooglePlayIcon, AppStoreIcon } from '../assets/icons';
 
 export function Footer() {

@@ -13,6 +13,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { Settings, Logout } from '@mui/icons-material';
+
 import { useAppSelector, useAppDispatch } from '../../store';
 import { clearAuth } from '../../store/auth.slice';
 

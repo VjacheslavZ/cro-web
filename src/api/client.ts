@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { store } from '../store';
 import { clearAuth, setCredentials } from '../store/auth.slice';
 
@@ -24,10 +25,9 @@ apiClient.interceptors.response.use(
       const { refreshToken } = store.getState().auth;
       if (refreshToken) {
         try {
-          const { data } = await axios.post(
-            `${apiClient.defaults.baseURL}/auth/refresh`,
-            { refreshToken },
-          );
+          const { data } = await axios.post(`${apiClient.defaults.baseURL}/auth/refresh`, {
+            refreshToken,
+          });
           const user = store.getState().auth.user!;
           store.dispatch(
             setCredentials({
