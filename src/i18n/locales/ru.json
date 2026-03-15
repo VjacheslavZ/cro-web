@@ -15,7 +15,26 @@
   "nav": {
     "home": "Главная",
     "exercises": "Упражнения",
+    "dictionary": "Словарь",
+    "myDictionary": "Мой словарь",
+    "collections": "Коллекции",
     "profile": "Профиль"
+  },
+  "header": {
+    "settings": "Настройки",
+    "logout": "Выйти",
+    "role": "Роль",
+    "xp": "Всего XP",
+    "streak": "Текущая серия",
+    "nativeLanguage": "Родной язык"
+  },
+  "footer": {
+    "aboutUs": "О нас",
+    "forPartners": "Партнёрам",
+    "contacts": "Контакты",
+    "socials": "Мы в соцсетях",
+    "mobileApps": "Мобильные приложения",
+    "rights": "Все права защищены."
   },
   "common": {
     "loading": "Загрузка...",

@@ -15,7 +15,26 @@
   "nav": {
     "home": "Головна",
     "exercises": "Вправи",
+    "dictionary": "Словник",
+    "myDictionary": "Мій словник",
+    "collections": "Колекції",
     "profile": "Профіль"
+  },
+  "header": {
+    "settings": "Налаштування",
+    "logout": "Вийти",
+    "role": "Роль",
+    "xp": "Всього XP",
+    "streak": "Поточна серія",
+    "nativeLanguage": "Рідна мова"
+  },
+  "footer": {
+    "aboutUs": "Про нас",
+    "forPartners": "Партнерам",
+    "contacts": "Контакти",
+    "socials": "Ми в соцмережах",
+    "mobileApps": "Мобільні додатки",
+    "rights": "Усі права захищені."
   },
   "common": {
     "loading": "Завантаження...",

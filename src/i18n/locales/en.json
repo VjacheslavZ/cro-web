@@ -15,7 +15,26 @@
   "nav": {
     "home": "Home",
     "exercises": "Exercises",
+    "dictionary": "Dictionary",
+    "myDictionary": "My dictionary",
+    "collections": "Collections",
     "profile": "Profile"
+  },
+  "header": {
+    "settings": "Settings",
+    "logout": "Log out",
+    "role": "Role",
+    "xp": "Total XP",
+    "streak": "Current streak",
+    "nativeLanguage": "Native language"
+  },
+  "footer": {
+    "aboutUs": "About us",
+    "forPartners": "For partners",
+    "contacts": "Contacts",
+    "socials": "Follow us",
+    "mobileApps": "Mobile apps",
+    "rights": "All rights reserved."
   },
   "common": {
     "loading": "Loading...",
