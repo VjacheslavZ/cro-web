@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Dispatch } from 'redux';
 
-import { clearTokens, saveUser, loadUser } from '../shared/lib/auth-storage';
+import { clearTokens } from '../shared/lib/auth-storage';
+import { fetchMe } from './auth.thunks';
 
 export interface UserProfile {
   id: string;
@@ -17,10 +18,12 @@ export interface UserProfile {
 
 interface AuthState {
   user: UserProfile | null;
+  loading: boolean;
 }
 
 const initialState: AuthState = {
-  user: loadUser<UserProfile>(),
+  user: null,
+  loading: false,
 };
 
 const authSlice = createSlice({
@@ -33,6 +36,20 @@ const authSlice = createSlice({
     _clearUser(state) {
       state.user = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMe.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchMe.rejected, (state) => {
+        state.user = null;
+        state.loading = false;
+      });
   },
 });
 
@@ -48,7 +65,6 @@ export function setCredentials(payload: {
 
 export function setUser(user: UserProfile) {
   return (dispatch: Dispatch) => {
-    saveUser(user);
     dispatch(authSlice.actions._setUser(user));
   };
 }
@@ -56,7 +72,6 @@ export function setUser(user: UserProfile) {
 export function clearAuth() {
   return (dispatch: Dispatch) => {
     clearTokens();
-    saveUser(null);
     dispatch(authSlice.actions._clearUser());
   };
 }

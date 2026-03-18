@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { store } from '../store';
 import { clearAuth, setCredentials } from '../store/auth.slice';
-import { getAccessToken, getRefreshToken, setTokens, saveUser } from '../shared/lib/auth-storage';
+import { getAccessToken, getRefreshToken, setTokens } from '../shared/lib/auth-storage';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
@@ -31,7 +31,6 @@ apiClient.interceptors.response.use(
           });
           const user = store.getState().auth.user!;
           setTokens(data.accessToken, data.refreshToken);
-          saveUser(user);
           store.dispatch(
             setCredentials({
               user,

@@ -32,27 +32,3 @@ export function isAuthenticated(): boolean {
   const token = getRefreshToken();
   return token !== null && !isTokenExpired(token);
 }
-
-const USER_KEY = 'auth_user';
-
-export function loadUser<T>(): T | null {
-  try {
-    const stored = localStorage.getItem(USER_KEY);
-    if (stored) return JSON.parse(stored) as T;
-  } catch {
-    // ignore corrupted storage
-  }
-  return null;
-}
-
-export function saveUser(user: unknown) {
-  try {
-    if (user) {
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(USER_KEY);
-    }
-  } catch {
-    // storage full or unavailable
-  }
-}

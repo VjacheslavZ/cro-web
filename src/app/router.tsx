@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../store';
 import { clearAuth } from '../store/auth.slice';
+import { fetchMe } from '../store/auth.thunks';
 import {
   isAuthenticated as checkAuth,
   getRefreshToken,
@@ -18,14 +20,28 @@ import { Footer } from '../components/Footer';
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, loading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const refreshToken = getRefreshToken();
-    if (user && refreshToken && isTokenExpired(refreshToken)) {
+    if (refreshToken && isTokenExpired(refreshToken)) {
       dispatch(clearAuth());
+      return;
+    }
+    if (!user && checkAuth()) {
+      dispatch(fetchMe());
     }
   }, [location.pathname, user, dispatch]);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return <>{children}</>;
 }
