@@ -96,5 +96,6 @@ const authSlice = createSlice({
   },
 });
 
+export { isTokenExpired };
 export const { setCredentials, setUser, clearAuth } = authSlice.actions;
 export const authReducer = authSlice.reducer;
