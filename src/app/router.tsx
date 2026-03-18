@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../store';
 import { clearAuth } from '../store/auth.slice';
-import { fetchMe } from '../store/auth.thunks';
+import { fetchMe } from '../api/auth';
 import {
   isAuthenticated as checkAuth,
   getRefreshToken,

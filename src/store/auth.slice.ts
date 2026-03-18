@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Dispatch } from 'redux';
 
 import { clearTokens } from '../shared/lib/auth-storage';
-import { fetchMe } from './auth.thunks';
+import { fetchMe } from '../api/auth';
 
 export interface UserProfile {
   id: string;

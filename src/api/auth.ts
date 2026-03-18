@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { apiClient } from '../api/client';
-import type { UserProfile } from './auth.slice';
+import { apiClient } from './client';
+import type { UserProfile } from '../store/auth.slice';
 
 export const fetchMe = createAsyncThunk<UserProfile>(
   'auth/fetchMe',
