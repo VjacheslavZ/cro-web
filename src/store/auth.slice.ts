@@ -21,21 +21,37 @@ interface AuthState {
   refreshToken: string | null;
 }
 
-function loadAuthState(): AuthState {
+function isTokenExpired(token: string): boolean {
   try {
-    const stored = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored) as AuthState;
-    }
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.exp * 1000 < Date.now();
   } catch {
-    // ignore corrupted storage
+    return true;
   }
-  return {
+}
+
+function loadAuthState(): AuthState {
+  const empty: AuthState = {
     user: null,
     isAuthenticated: false,
     accessToken: null,
     refreshToken: null,
   };
+
+  try {
+    const stored = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (stored) {
+      const state = JSON.parse(stored) as AuthState;
+      if (state.refreshToken && isTokenExpired(state.refreshToken)) {
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+        return empty;
+      }
+      return state;
+    }
+  } catch {
+    // ignore corrupted storage
+  }
+  return empty;
 }
 
 function saveAuthState(state: AuthState) {
@@ -75,7 +91,7 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
       state.isAuthenticated = false;
-      saveAuthState(state as AuthState);
+      localStorage.removeItem(AUTH_STORAGE_KEY);
     },
   },
 });

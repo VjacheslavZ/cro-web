@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { useAppSelector } from '../store';
 import { LoginPage } from '../features/auth/LoginPage';
 import { LanguageSelectPage } from '../features/auth/LanguageSelectPage';
+import { ExercisesPage } from '../features/exercises/ExercisesPage';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -30,6 +31,17 @@ export function AppRouter() {
             <Route path="/about" element={<div>About Us (placeholder)</div>} />
             <Route path="/partners" element={<div>For Partners (placeholder)</div>} />
             <Route path="/contacts" element={<div>Contacts (placeholder)</div>} />
+            {/*{ Private routes }*/}
+            <Route
+              path="/exercises"
+              element={
+                <PrivateRoute>
+                  <LanguageGuard>
+                    <ExercisesPage />
+                  </LanguageGuard>
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/dictionary/my"
               element={

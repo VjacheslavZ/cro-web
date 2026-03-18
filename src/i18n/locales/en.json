@@ -36,6 +36,15 @@
     "mobileApps": "Mobile apps",
     "rights": "All rights reserved."
   },
+  "exercises": {
+    "title": "Exercises",
+    "subtitle": "Choose a category to practice your Croatian grammar.",
+    "categories": {
+      "cases": "Cases",
+      "verbs": "Verbs",
+      "vocabulary": "Vocabulary"
+    }
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",

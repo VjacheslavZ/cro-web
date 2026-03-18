@@ -40,9 +40,11 @@ apiClient.interceptors.response.use(
           return apiClient(originalRequest);
         } catch {
           store.dispatch(clearAuth());
+          window.location.href = '/login';
         }
       } else {
         store.dispatch(clearAuth());
+        window.location.href = '/login';
       }
     }
     return Promise.reject(error);
