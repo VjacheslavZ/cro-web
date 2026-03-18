@@ -3,7 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { Box } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../store';
-import { clearAuth, isTokenExpired } from '../store/auth.slice';
+import { clearAuth } from '../store/auth.slice';
+import {
+  isAuthenticated as checkAuth,
+  getRefreshToken,
+  isTokenExpired,
+} from '../shared/lib/auth-storage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { LanguageSelectPage } from '../features/auth/LanguageSelectPage';
 import { ExercisesPage } from '../features/exercises/ExercisesPage';
@@ -13,20 +18,20 @@ import { Footer } from '../components/Footer';
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { refreshToken, isAuthenticated } = useAppSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
-    if (isAuthenticated && refreshToken && isTokenExpired(refreshToken)) {
+    const refreshToken = getRefreshToken();
+    if (user && refreshToken && isTokenExpired(refreshToken)) {
       dispatch(clearAuth());
     }
-  }, [location.pathname, isAuthenticated, refreshToken, dispatch]);
+  }, [location.pathname, user, dispatch]);
 
   return <>{children}</>;
 }
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!checkAuth()) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
 

@@ -9,6 +9,7 @@ import { Box, Typography, Container, Paper, Alert } from '@mui/material';
 import { useAppDispatch } from '../../store';
 import { setCredentials } from '../../store/auth.slice';
 import { apiClient } from '../../api/client';
+import { saveUser, setTokens } from '../../shared/lib/auth-storage.ts';
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -24,6 +25,8 @@ export function LoginPage() {
       setError(null);
       try {
         const { data } = await apiClient.post('/auth/google', { token: codeResponse.code });
+        setTokens(data.accessToken, data.refreshToken);
+        saveUser(data.user);
         dispatch(
           setCredentials({
             user: data.user,

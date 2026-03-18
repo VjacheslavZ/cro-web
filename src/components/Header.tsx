@@ -10,7 +10,8 @@ import { UserMenu } from './header/UserMenu';
 export function Header() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const user = useAppSelector((state) => state.auth.user);
+  const isAuthenticated = Boolean(user);
 
   return (
     <AppBar position="sticky">

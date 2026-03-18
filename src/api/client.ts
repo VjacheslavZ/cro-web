@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { store } from '../store';
 import { clearAuth, setCredentials } from '../store/auth.slice';
+import { getAccessToken, getRefreshToken, setTokens, saveUser } from '../shared/lib/auth-storage';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
@@ -9,7 +10,7 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const { accessToken } = store.getState().auth;
+  const accessToken = getAccessToken();
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -22,13 +23,15 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const { refreshToken } = store.getState().auth;
+      const refreshToken = getRefreshToken();
       if (refreshToken) {
         try {
           const { data } = await axios.post(`${apiClient.defaults.baseURL}/auth/refresh`, {
             refreshToken,
           });
           const user = store.getState().auth.user!;
+          setTokens(data.accessToken, data.refreshToken);
+          saveUser(user);
           store.dispatch(
             setCredentials({
               user,
