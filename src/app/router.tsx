@@ -14,6 +14,9 @@ import {
 import { LoginPage } from '../features/auth/LoginPage';
 import { LanguageSelectPage } from '../features/auth/LanguageSelectPage';
 import { ExercisesPage } from '../features/exercises/ExercisesPage';
+import { WordSetsPage } from '../features/exercises/WordSetsPage';
+import { SessionPage } from '../features/exercises/SessionPage';
+import { SessionResultsPage } from '../features/exercises/SessionResultsPage';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -76,6 +79,36 @@ export function AppRouter() {
                   <PrivateRoute>
                     <LanguageGuard>
                       <ExercisesPage />
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/exercises/:categoryId"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <WordSetsPage />
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/exercises/session/:sessionId"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <SessionPage />
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/exercises/results/:sessionId"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <SessionResultsPage />
                     </LanguageGuard>
                   </PrivateRoute>
                 }

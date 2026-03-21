@@ -39,10 +39,50 @@
   "exercises": {
     "title": "Упражнения",
     "subtitle": "Выберите категорию для практики хорватской грамматики.",
+    "wordSets": "Наборы слов",
+    "selectCategory": "Выберите категорию",
+    "noWordSets": "В этой категории нет наборов слов.",
+    "words": "{{count}} слов",
     "categories": {
       "cases": "Падежи",
       "verbs": "Глаголы",
       "vocabulary": "Словарный запас"
+    },
+    "types": {
+      "jedninaMnozina": "Единственное и множественное",
+      "flashcards": "Карточки"
+    },
+    "session": {
+      "progress": "Вопрос {{current}} из {{total}}",
+      "check": "Проверить",
+      "next": "Далее",
+      "finish": "Завершить"
+    },
+    "jedninaMnozina": {
+      "title": "Единственное и множественное число",
+      "instruction": "Введите множественное число слова:",
+      "placeholder": "Введите множественное число...",
+      "correct": "Правильно!",
+      "incorrect": "Неправильно. Правильный ответ: {{answer}}"
+    },
+    "flashcards": {
+      "title": "Карточки",
+      "instruction": "Вы знаете это слово?",
+      "tapToFlip": "Нажмите, чтобы увидеть перевод",
+      "knew": "Знал(а)",
+      "didNotKnow": "Не знал(а)"
+    },
+    "results": {
+      "title": "Сессия завершена!",
+      "score": "Результат: {{correct}} / {{total}}",
+      "xpEarned": "+{{xp}} XP",
+      "streak": "Текущая серия: {{streak}} дней",
+      "backToExercises": "Вернуться к упражнениям"
+    },
+    "cycle": {
+      "exhausted": "Вы прошли все слова в этом наборе!",
+      "resetAndStart": "Сбросить и начать заново",
+      "back": "Назад"
     }
   },
   "common": {

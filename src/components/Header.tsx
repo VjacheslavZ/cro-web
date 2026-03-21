@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, Chip } from '@mui/material';
+import { Star, LocalFireDepartment } from '@mui/icons-material';
 
 import { useAppSelector } from '../store';
 import { LanguageMenu } from './header/LanguageMenu';
@@ -31,6 +32,22 @@ export function Header() {
             <Button color="inherit" onClick={() => navigate('/exercises')}>
               {t('nav.exercises')}
             </Button>
+            <Chip
+              icon={<Star />}
+              label={`${user?.xpTotal} XP`}
+              size="small"
+              color="primary"
+              variant="outlined"
+              sx={{ mx: 0.5 }}
+            />
+            <Chip
+              icon={<LocalFireDepartment />}
+              label={user?.currentStreak}
+              size="small"
+              color="warning"
+              variant="outlined"
+              sx={{ mx: 0.5 }}
+            />
             <DictionaryMenu />
             <UserMenu />
           </>

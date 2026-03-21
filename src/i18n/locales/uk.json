@@ -39,10 +39,50 @@
   "exercises": {
     "title": "Вправи",
     "subtitle": "Оберіть категорію для практики хорватської граматики.",
+    "wordSets": "Набори слів",
+    "selectCategory": "Оберіть категорію",
+    "noWordSets": "У цій категорії немає наборів слів.",
+    "words": "{{count}} слів",
     "categories": {
       "cases": "Відмінки",
       "verbs": "Дієслова",
       "vocabulary": "Словниковий запас"
+    },
+    "types": {
+      "jedninaMnozina": "Однина і множина",
+      "flashcards": "Картки"
+    },
+    "session": {
+      "progress": "Питання {{current}} з {{total}}",
+      "check": "Перевірити",
+      "next": "Далі",
+      "finish": "Завершити"
+    },
+    "jedninaMnozina": {
+      "title": "Однина і множина",
+      "instruction": "Введіть множину слова:",
+      "placeholder": "Введіть множину...",
+      "correct": "Правильно!",
+      "incorrect": "Неправильно. Правильна відповідь: {{answer}}"
+    },
+    "flashcards": {
+      "title": "Картки",
+      "instruction": "Ви знаєте це слово?",
+      "tapToFlip": "Натисніть, щоб побачити переклад",
+      "knew": "Знав/Знала",
+      "didNotKnow": "Не знав/Не знала"
+    },
+    "results": {
+      "title": "Сесію завершено!",
+      "score": "Результат: {{correct}} / {{total}}",
+      "xpEarned": "+{{xp}} XP",
+      "streak": "Поточна серія: {{streak}} днів",
+      "backToExercises": "Повернутися до вправ"
+    },
+    "cycle": {
+      "exhausted": "Ви пройшли всі слова у цьому наборі!",
+      "resetAndStart": "Скинути і почати знову",
+      "back": "Назад"
     }
   },
   "common": {

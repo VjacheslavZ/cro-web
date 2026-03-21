@@ -39,10 +39,50 @@
   "exercises": {
     "title": "Exercises",
     "subtitle": "Choose a category to practice your Croatian grammar.",
+    "wordSets": "Word Sets",
+    "selectCategory": "Select a category",
+    "noWordSets": "No word sets available in this category.",
+    "words": "{{count}} words",
     "categories": {
       "cases": "Cases",
       "verbs": "Verbs",
       "vocabulary": "Vocabulary"
+    },
+    "types": {
+      "jedninaMnozina": "Singular & Plural",
+      "flashcards": "Flashcards"
+    },
+    "session": {
+      "progress": "Question {{current}} of {{total}}",
+      "check": "Check",
+      "next": "Next",
+      "finish": "Finish"
+    },
+    "jedninaMnozina": {
+      "title": "Singular & Plural",
+      "instruction": "Enter the plural form of the word:",
+      "placeholder": "Enter plural form...",
+      "correct": "Correct!",
+      "incorrect": "Incorrect. The correct answer is: {{answer}}"
+    },
+    "flashcards": {
+      "title": "Flashcards",
+      "instruction": "Do you know this word?",
+      "tapToFlip": "Tap to see the translation",
+      "knew": "I knew it",
+      "didNotKnow": "I didn't know"
+    },
+    "results": {
+      "title": "Session Complete!",
+      "score": "Score: {{correct}} / {{total}}",
+      "xpEarned": "+{{xp}} XP",
+      "streak": "Current streak: {{streak}} days",
+      "backToExercises": "Back to exercises"
+    },
+    "cycle": {
+      "exhausted": "You've completed all words in this set!",
+      "resetAndStart": "Reset & Start Again",
+      "back": "Back"
     }
   },
   "common": {
