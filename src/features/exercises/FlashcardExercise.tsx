@@ -1,35 +1,35 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, Button, Card, CardActionArea, Box } from '@mui/material';
+import type { FlashcardItem } from '@cro/shared';
 
 import { useAppSelector } from '../../store';
-import type { SessionWord } from '../../api/exercises';
 
 interface FlashcardExerciseProps {
-  word: SessionWord;
-  onAnswer: (answer: { wordId: string; givenAnswer: string; isCorrect: boolean }) => void;
+  item: FlashcardItem;
+  onAnswer: (answer: { itemId: string; givenAnswer: string; isCorrect: boolean }) => void;
   isLast: boolean;
 }
 
-function getTranslation(word: SessionWord, lang: string | null): string {
+function getTranslation(item: FlashcardItem, lang: string | null): string {
   switch (lang) {
     case 'RU':
-      return word.translationRu;
+      return item.translationRu;
     case 'UK':
-      return word.translationUk;
+      return item.translationUk;
     default:
-      return word.translationEn;
+      return item.translationEn;
   }
 }
 
-export function FlashcardExercise({ word, onAnswer, isLast: _isLast }: FlashcardExerciseProps) {
+export function FlashcardExercise({ item, onAnswer, isLast: _isLast }: FlashcardExerciseProps) {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.auth.user);
   const [flipped, setFlipped] = useState(false);
 
   const handleAnswer = (knew: boolean) => {
     onAnswer({
-      wordId: word.wordId,
+      itemId: item.id,
       givenAnswer: knew ? 'KNOWN' : 'UNKNOWN',
       isCorrect: knew,
     });
@@ -67,12 +67,12 @@ export function FlashcardExercise({ word, onAnswer, isLast: _isLast }: Flashcard
           }}
         >
           <Typography variant="h4" sx={{ textAlign: 'center' }}>
-            {word.baseForm}
+            {item.frontText}
           </Typography>
 
           {flipped ? (
             <Typography variant="h5" color="primary" sx={{ mt: 2, textAlign: 'center' }}>
-              {getTranslation(word, user?.nativeLanguage ?? null)}
+              {getTranslation(item, user?.nativeLanguage ?? null)}
             </Typography>
           ) : (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>

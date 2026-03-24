@@ -2,22 +2,23 @@ import { useState, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Container, Typography, LinearProgress, Box, Alert } from '@mui/material';
+import type { ExerciseItem } from '@cro/shared';
 
 import { useAppDispatch } from '../../store';
 import { useFinishSession } from '../../api/exercises';
-import type { SessionWord } from '../../api/exercises';
 import { fetchMe } from '../../api/auth';
 import { JedninaMnozinaExercise } from './JedninaMnozinaExercise';
 import { FlashcardExercise } from './FlashcardExercise';
+import { FillInBlankExercise } from './FillInBlankExercise';
 
 interface SessionLocationState {
-  words: SessionWord[];
+  items: ExerciseItem[];
   exerciseType: string;
   totalQuestions: number;
 }
 
 interface SessionAnswer {
-  wordId: string;
+  itemId: string;
   givenAnswer: string;
   isCorrect: boolean;
 }
@@ -41,7 +42,7 @@ export function SessionPage() {
 
       if (!state) return;
 
-      if (currentIndex + 1 >= state.words.length) {
+      if (currentIndex + 1 >= state.items.length) {
         try {
           const result = await finishSession.mutateAsync({
             sessionId: sessionId!,
@@ -67,7 +68,7 @@ export function SessionPage() {
     [answers, currentIndex, state, sessionId, finishSession, dispatch, navigate],
   );
 
-  if (!state || !state.words || state.words.length === 0) {
+  if (!state || !state.items || state.items.length === 0) {
     return (
       <Container maxWidth="sm" sx={{ py: 4 }}>
         <Alert severity="error">{t('common.error')}</Alert>
@@ -75,16 +76,16 @@ export function SessionPage() {
     );
   }
 
-  const { words, exerciseType } = state;
-  const currentWord = words[currentIndex];
-  const progress = ((currentIndex + 1) / words.length) * 100;
+  const { items, exerciseType } = state;
+  const currentItem = items[currentIndex];
+  const progress = ((currentIndex + 1) / items.length) * 100;
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
         {t('exercises.session.progress', {
           current: currentIndex + 1,
-          total: words.length,
+          total: items.length,
         })}
       </Typography>
       <LinearProgress
@@ -102,18 +103,26 @@ export function SessionPage() {
       <Box>
         {exerciseType === 'JEDNINA_MNOZINA' && (
           <JedninaMnozinaExercise
-            key={currentWord.wordId}
-            word={currentWord}
+            key={currentItem.id}
+            item={currentItem as ExerciseItem & { type: 'JEDNINA_MNOZINA' }}
             onAnswer={handleAnswer}
-            isLast={currentIndex + 1 >= words.length}
+            isLast={currentIndex + 1 >= items.length}
           />
         )}
         {exerciseType === 'FLASHCARDS' && (
           <FlashcardExercise
-            key={currentWord.wordId}
-            word={currentWord}
+            key={currentItem.id}
+            item={currentItem as ExerciseItem & { type: 'FLASHCARDS' }}
             onAnswer={handleAnswer}
-            isLast={currentIndex + 1 >= words.length}
+            isLast={currentIndex + 1 >= items.length}
+          />
+        )}
+        {exerciseType === 'FILL_IN_BLANK' && (
+          <FillInBlankExercise
+            key={currentItem.id}
+            item={currentItem as ExerciseItem & { type: 'FILL_IN_BLANK' }}
+            onAnswer={handleAnswer}
+            isLast={currentIndex + 1 >= items.length}
           />
         )}
       </Box>

@@ -14,7 +14,7 @@ interface CycleResetDialogProps {
   open: boolean;
   onReset: () => void;
   onClose: () => void;
-  wordSetId: string;
+  topicId: string;
   exerciseType: string;
 }
 
@@ -22,7 +22,7 @@ export function CycleResetDialog({
   open,
   onReset,
   onClose,
-  wordSetId,
+  topicId,
   exerciseType,
 }: CycleResetDialogProps) {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ export function CycleResetDialog({
 
   const handleReset = async () => {
     try {
-      await resetCycle.mutateAsync({ wordSetId, exerciseType });
+      await resetCycle.mutateAsync({ topicId, exerciseType });
       onReset();
     } catch {
       // Error handled by mutation state

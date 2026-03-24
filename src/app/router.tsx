@@ -14,7 +14,7 @@ import {
 import { LoginPage } from '../features/auth/LoginPage';
 import { LanguageSelectPage } from '../features/auth/LanguageSelectPage';
 import { ExercisesPage } from '../features/exercises/ExercisesPage';
-import { WordSetsPage } from '../features/exercises/WordSetsPage';
+import { TopicExercisesPage } from '../features/exercises/TopicExercisesPage';
 import { SessionPage } from '../features/exercises/SessionPage';
 import { SessionResultsPage } from '../features/exercises/SessionResultsPage';
 import { Header } from '../components/Header';
@@ -84,11 +84,11 @@ export function AppRouter() {
                 }
               />
               <Route
-                path="/exercises/:categoryId"
+                path="/exercises/:topicId"
                 element={
                   <PrivateRoute>
                     <LanguageGuard>
-                      <WordSetsPage />
+                      <TopicExercisesPage />
                     </LanguageGuard>
                   </PrivateRoute>
                 }

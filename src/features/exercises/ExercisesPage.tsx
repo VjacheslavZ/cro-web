@@ -10,18 +10,21 @@ import {
   Box,
   Alert,
   Button,
+  Chip,
+  Stack,
 } from '@mui/material';
 import { School } from '@mui/icons-material';
 
 import { useAppSelector } from '../../store';
-import { useCategories } from '../../api/content';
+import { useTopics } from '../../api/content';
 import { getLocalizedName } from '../../shared/lib/content-utils';
+import { getExerciseTypeLabel } from '../../shared/lib/exercise-utils';
 
 export function ExercisesPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
-  const { data: categories, isLoading, error, refetch } = useCategories();
+  const { data: topics, isLoading, error, refetch } = useTopics();
 
   if (isLoading) {
     return (
@@ -58,14 +61,26 @@ export function ExercisesPage() {
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {categories?.map((category) => (
-          <Card key={category.id} variant="outlined">
-            <CardActionArea onClick={() => navigate(`/exercises/${category.id}`)}>
+        {topics?.map((topic) => (
+          <Card key={topic.id} variant="outlined">
+            <CardActionArea onClick={() => navigate(`/exercises/${topic.id}`)}>
               <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <School color="primary" />
-                <Typography variant="h6">
-                  {getLocalizedName(category, user?.nativeLanguage ?? null)}
-                </Typography>
+                <Box sx={{ flex: 1 }}>
+                  <Typography variant="h6">
+                    {getLocalizedName(topic, user?.nativeLanguage ?? null)}
+                  </Typography>
+                  <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }}>
+                    {topic.exerciseTypes.map((type) => (
+                      <Chip
+                        key={type}
+                        label={getExerciseTypeLabel(type, t)}
+                        size="small"
+                        variant="outlined"
+                      />
+                    ))}
+                  </Stack>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>

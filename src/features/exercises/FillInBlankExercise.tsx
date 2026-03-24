@@ -1,24 +1,28 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, TextField, Button, Card, CardContent, Box, Alert } from '@mui/material';
-import type { SingularPluralItem } from '@cro/shared';
+import type { FillInBlankItem } from '@cro/shared';
 
 import { normalizeAnswer } from '../../shared/lib/content-utils';
 
-interface JedninaMnozinaExerciseProps {
-  item: SingularPluralItem;
+interface FillInBlankExerciseProps {
+  item: FillInBlankItem;
   onAnswer: (answer: { itemId: string; givenAnswer: string; isCorrect: boolean }) => void;
   isLast: boolean;
 }
 
-export function JedninaMnozinaExercise({ item, onAnswer, isLast }: JedninaMnozinaExerciseProps) {
+function renderSentence(sentenceHr: string): string {
+  return sentenceHr.replace('{{BLANK}}', '______');
+}
+
+export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerciseProps) {
   const { t } = useTranslation();
   const [input, setInput] = useState('');
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
   const handleCheck = () => {
-    const correct = normalizeAnswer(input) === normalizeAnswer(item.pluralForm);
+    const correct = normalizeAnswer(input) === normalizeAnswer(item.blankAnswer);
     setIsCorrect(correct);
     setChecked(true);
   };
@@ -45,14 +49,14 @@ export function JedninaMnozinaExercise({ item, onAnswer, isLast }: JedninaMnozin
     <Card variant="outlined">
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          {t('exercises.jedninaMnozina.title')}
+          {t('exercises.fillInBlank.title')}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {t('exercises.jedninaMnozina.instruction')}
+          {t('exercises.fillInBlank.instruction')}
         </Typography>
 
-        <Typography variant="h4" sx={{ mb: 3, textAlign: 'center' }}>
-          {item.baseForm}
+        <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+          {renderSentence(item.sentenceHr)}
         </Typography>
 
         <TextField
@@ -60,7 +64,7 @@ export function JedninaMnozinaExercise({ item, onAnswer, isLast }: JedninaMnozin
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={t('exercises.jedninaMnozina.placeholder')}
+          placeholder={t('exercises.fillInBlank.placeholder')}
           disabled={checked}
           autoFocus
           sx={{ mb: 2 }}
@@ -69,8 +73,8 @@ export function JedninaMnozinaExercise({ item, onAnswer, isLast }: JedninaMnozin
         {checked && (
           <Alert severity={isCorrect ? 'success' : 'error'} sx={{ mb: 2 }}>
             {isCorrect
-              ? t('exercises.jedninaMnozina.correct')
-              : t('exercises.jedninaMnozina.incorrect', { answer: item.pluralForm })}
+              ? t('exercises.fillInBlank.correct')
+              : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
           </Alert>
         )}
 

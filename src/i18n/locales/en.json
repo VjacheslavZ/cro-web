@@ -38,19 +38,14 @@
   },
   "exercises": {
     "title": "Exercises",
-    "subtitle": "Choose a category to practice your Croatian grammar.",
-    "wordSets": "Word Sets",
-    "selectCategory": "Select a category",
-    "noWordSets": "No word sets available in this category.",
-    "words": "{{count}} words",
-    "categories": {
-      "cases": "Cases",
-      "verbs": "Verbs",
-      "vocabulary": "Vocabulary"
-    },
+    "subtitle": "Choose a topic to practice your Croatian grammar.",
+    "chooseType": "Choose an exercise type to start practicing.",
+    "noTypes": "No exercise types available for this topic.",
+    "start": "Start",
     "types": {
-      "jedninaMnozina": "Singular & Plural",
-      "flashcards": "Flashcards"
+      "jedninaMnozina": "Type the Answer",
+      "flashcards": "Flashcards",
+      "fillInBlank": "Fill in the Blank"
     },
     "session": {
       "progress": "Question {{current}} of {{total}}",
@@ -59,7 +54,7 @@
       "finish": "Finish"
     },
     "jedninaMnozina": {
-      "title": "Singular & Plural",
+      "title": "Type the Answer",
       "instruction": "Enter the plural form of the word:",
       "placeholder": "Enter plural form...",
       "correct": "Correct!",
@@ -72,6 +67,13 @@
       "knew": "I knew it",
       "didNotKnow": "I didn't know"
     },
+    "fillInBlank": {
+      "title": "Fill in the Blank",
+      "instruction": "Fill in the missing word:",
+      "placeholder": "Enter the missing word...",
+      "correct": "Correct!",
+      "incorrect": "Incorrect. The correct answer is: {{answer}}"
+    },
     "results": {
       "title": "Session Complete!",
       "score": "Score: {{correct}} / {{total}}",
@@ -80,7 +82,7 @@
       "backToExercises": "Back to exercises"
     },
     "cycle": {
-      "exhausted": "You've completed all words in this set!",
+      "exhausted": "You've completed all items in this topic!",
       "resetAndStart": "Reset & Start Again",
       "back": "Back"
     }

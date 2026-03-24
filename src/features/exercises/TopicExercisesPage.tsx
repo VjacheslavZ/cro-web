@@ -4,52 +4,66 @@ import { useTranslation } from 'react-i18next';
 import {
   Container,
   Typography,
-  Card,
-  CardContent,
   CircularProgress,
   Box,
   Alert,
   Button,
-  Chip,
+  Card,
+  CardContent,
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
+import { useQuery } from '@tanstack/react-query';
+import type { ExerciseTopic } from '@cro/shared';
 
 import { useAppSelector } from '../../store';
-import { useWordSets } from '../../api/content';
+import { apiClient } from '../../api/client';
 import { useCreateSession } from '../../api/exercises';
 import type { CreateSessionResponse } from '../../api/exercises';
 import { getLocalizedName } from '../../shared/lib/content-utils';
+import { getExerciseTypeLabel } from '../../shared/lib/exercise-utils';
 import { CycleResetDialog } from './CycleResetDialog';
 
-export function WordSetsPage() {
+export function TopicExercisesPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { categoryId } = useParams<{ categoryId: string }>();
+  const { topicId } = useParams<{ topicId: string }>();
   const user = useAppSelector((state) => state.auth.user);
-  const { data: wordSets, isLoading, error, refetch } = useWordSets(categoryId ?? '');
   const createSession = useCreateSession();
 
+  const {
+    data: topic,
+    isLoading,
+    error,
+  } = useQuery<ExerciseTopic>({
+    queryKey: ['topic', topicId],
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/content/topics/${topicId}`);
+      return data;
+    },
+    enabled: !!topicId,
+  });
+
   const [cycleResetInfo, setCycleResetInfo] = useState<{
-    wordSetId: string;
+    topicId: string;
     exerciseType: string;
   } | null>(null);
 
-  const handleStartExercise = async (wordSetId: string, exerciseType: string) => {
+  const handleStartExercise = async (exerciseType: string) => {
     try {
       const result: CreateSessionResponse = await createSession.mutateAsync({
-        wordSetId,
+        topicId: topicId!,
         exerciseType,
       });
 
       if (result.cycleExhausted) {
-        setCycleResetInfo({ wordSetId, exerciseType });
+        setCycleResetInfo({ topicId: topicId!, exerciseType });
         return;
       }
 
       if (result.session) {
         navigate(`/exercises/session/${result.session.id}`, {
           state: {
-            words: result.session.words,
+            items: result.session.items,
             exerciseType: result.session.exerciseType,
             totalQuestions: result.session.totalQuestions,
           },
@@ -62,7 +76,7 @@ export function WordSetsPage() {
 
   const handleCycleReset = () => {
     if (cycleResetInfo) {
-      handleStartExercise(cycleResetInfo.wordSetId, cycleResetInfo.exerciseType);
+      handleStartExercise(cycleResetInfo.exerciseType);
     }
     setCycleResetInfo(null);
   };
@@ -75,19 +89,10 @@ export function WordSetsPage() {
     );
   }
 
-  if (error) {
+  if (error || !topic) {
     return (
       <Container maxWidth="sm" sx={{ py: 4 }}>
-        <Alert
-          severity="error"
-          action={
-            <Button color="inherit" size="small" onClick={() => refetch()}>
-              {t('common.retry')}
-            </Button>
-          }
-        >
-          {t('common.error')}
-        </Alert>
+        <Alert severity="error">{t('common.error')}</Alert>
       </Container>
     );
   }
@@ -99,43 +104,30 @@ export function WordSetsPage() {
       </Button>
 
       <Typography variant="h4" gutterBottom>
-        {t('exercises.wordSets')}
+        {getLocalizedName(topic, user?.nativeLanguage ?? null)}
       </Typography>
 
-      {(!wordSets || wordSets.length === 0) && (
-        <Typography color="text.secondary">{t('exercises.noWordSets')}</Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+        {t('exercises.chooseType')}
+      </Typography>
+
+      {topic.exerciseTypes.length === 0 && (
+        <Typography color="text.secondary">{t('exercises.noTypes')}</Typography>
       )}
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {wordSets?.map((ws) => (
-          <Card key={ws.id} variant="outlined">
+        {topic.exerciseTypes.map((type) => (
+          <Card key={type} variant="outlined">
             <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="h6">
-                  {getLocalizedName(ws, user?.nativeLanguage ?? null)}
-                </Typography>
-                <Chip
-                  label={t('exercises.words', { count: ws.wordCount })}
-                  size="small"
-                  variant="outlined"
-                />
-              </Box>
-              <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography variant="h6">{getExerciseTypeLabel(type, t)}</Typography>
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => handleStartExercise(ws.id, 'JEDNINA_MNOZINA')}
+                  onClick={() => handleStartExercise(type)}
                   disabled={createSession.isPending}
                 >
-                  {t('exercises.types.jedninaMnozina')}
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handleStartExercise(ws.id, 'FLASHCARDS')}
-                  disabled={createSession.isPending}
-                >
-                  {t('exercises.types.flashcards')}
+                  {t('exercises.start')}
                 </Button>
               </Box>
             </CardContent>
@@ -153,7 +145,7 @@ export function WordSetsPage() {
         open={cycleResetInfo !== null}
         onReset={handleCycleReset}
         onClose={() => setCycleResetInfo(null)}
-        wordSetId={cycleResetInfo?.wordSetId ?? ''}
+        topicId={cycleResetInfo?.topicId ?? ''}
         exerciseType={cycleResetInfo?.exerciseType ?? ''}
       />
     </Container>
