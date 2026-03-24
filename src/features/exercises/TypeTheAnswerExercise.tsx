@@ -53,6 +53,7 @@ export function TypeTheAnswerExercise({ item, onAnswer }: TypeTheAnswerExerciseP
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter' && !checked && input.trim()) {
       handleCheck();
     }
