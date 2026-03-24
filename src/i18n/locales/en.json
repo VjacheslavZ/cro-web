@@ -43,7 +43,7 @@
     "noTypes": "No exercise types available for this topic.",
     "start": "Start",
     "types": {
-      "jedninaMnozina": "Type the Answer",
+      "typeTheAnswer": "Type the Answer",
       "flashcards": "Flashcards",
       "fillInBlank": "Fill in the Blank"
     },
@@ -53,7 +53,7 @@
       "next": "Next",
       "finish": "Finish"
     },
-    "jedninaMnozina": {
+    "typeTheAnswer": {
       "title": "Type the Answer",
       "instruction": "Enter the plural form of the word:",
       "placeholder": "Enter plural form...",

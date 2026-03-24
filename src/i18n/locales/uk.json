@@ -43,7 +43,7 @@
     "noTypes": "Для цієї теми немає доступних типів вправ.",
     "start": "Почати",
     "types": {
-      "jedninaMnozina": "Впишіть відповідь",
+      "typeTheAnswer": "Впишіть відповідь",
       "flashcards": "Картки",
       "fillInBlank": "Заповни пропуск"
     },
@@ -53,7 +53,7 @@
       "next": "Далі",
       "finish": "Завершити"
     },
-    "jedninaMnozina": {
+    "typeTheAnswer": {
       "title": "Впишіть відповідь",
       "instruction": "Введіть множину слова:",
       "placeholder": "Введіть множину...",

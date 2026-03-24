@@ -43,7 +43,7 @@
     "noTypes": "Для этой темы нет доступных типов упражнений.",
     "start": "Начать",
     "types": {
-      "jedninaMnozina": "Впишите ответ",
+      "typeTheAnswer": "Впишите ответ",
       "flashcards": "Карточки",
       "fillInBlank": "Заполни пропуск"
     },
@@ -53,7 +53,7 @@
       "next": "Далее",
       "finish": "Завершить"
     },
-    "jedninaMnozina": {
+    "typeTheAnswer": {
       "title": "Впишите ответ",
       "instruction": "Введите множественное число слова:",
       "placeholder": "Введите множественное число...",

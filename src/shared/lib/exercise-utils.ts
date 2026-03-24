@@ -3,8 +3,8 @@ import type { TFunction } from 'i18next';
 
 export function getExerciseTypeLabel(type: ExerciseType, t: TFunction): string {
   switch (type) {
-    case ExerciseType.JEDNINA_MNOZINA:
-      return t('exercises.types.jedninaMnozina');
+    case ExerciseType.TYPE_THE_ANSWER:
+      return t('exercises.types.typeTheAnswer');
     case ExerciseType.FLASHCARDS:
       return t('exercises.types.flashcards');
     case ExerciseType.FILL_IN_BLANK:

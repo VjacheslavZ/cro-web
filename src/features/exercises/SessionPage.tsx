@@ -7,7 +7,7 @@ import type { ExerciseItem } from '@cro/shared';
 import { useAppDispatch } from '../../store';
 import { useFinishSession } from '../../api/exercises';
 import { fetchMe } from '../../api/auth';
-import { JedninaMnozinaExercise } from './JedninaMnozinaExercise';
+import { TypeTheAnswerExercise } from './TypeTheAnswerExercise';
 import { FlashcardExercise } from './FlashcardExercise';
 import { FillInBlankExercise } from './FillInBlankExercise';
 
@@ -101,10 +101,10 @@ export function SessionPage() {
       )}
 
       <Box>
-        {exerciseType === 'JEDNINA_MNOZINA' && (
-          <JedninaMnozinaExercise
+        {exerciseType === 'TYPE_THE_ANSWER' && (
+          <TypeTheAnswerExercise
             key={currentItem.id}
-            item={currentItem as ExerciseItem & { type: 'JEDNINA_MNOZINA' }}
+            item={currentItem as ExerciseItem & { type: 'TYPE_THE_ANSWER' }}
             onAnswer={handleAnswer}
             isLast={currentIndex + 1 >= items.length}
           />
