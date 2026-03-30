@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Typography, TextField, Button, Card, CardContent, Box, Alert } from '@mui/material';
 import type { FillInBlankItem } from '@cro/shared';
 
-import { normalizeAnswer } from '../../shared/lib/content-utils';
+import { normalizeAnswer, getTranslation } from '../../shared/lib/content-utils';
+import { useAppSelector } from '../../store';
 
 interface FillInBlankExerciseProps {
   item: FillInBlankItem;
@@ -17,6 +18,7 @@ function renderSentence(sentenceHr: string): string {
 
 export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerciseProps) {
   const { t } = useTranslation();
+  const user = useAppSelector((state) => state.auth.user);
   const [input, setInput] = useState('');
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -56,8 +58,11 @@ export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerc
           {t('exercises.fillInBlank.instruction')}
         </Typography>
 
-        <Typography variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+        <Typography variant="h5" sx={{ mb: 1, textAlign: 'center' }}>
           {renderSentence(item.sentenceHr)}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+          {getTranslation(item, user?.nativeLanguage ?? null)}
         </Typography>
 
         <TextField
@@ -71,15 +76,16 @@ export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerc
           sx={{ mb: 2 }}
         />
 
-        {checked && (
-          <Alert severity={isCorrect ? 'success' : 'error'} sx={{ mb: 2 }}>
-            {isCorrect
-              ? t('exercises.fillInBlank.correct')
-              : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
-          </Alert>
-        )}
-
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box width="80%">
+            {checked && (
+              <Alert severity={isCorrect ? 'success' : 'error'}>
+                {isCorrect
+                  ? t('exercises.fillInBlank.correct')
+                  : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
+              </Alert>
+            )}
+          </Box>
           {!checked ? (
             <Button variant="contained" onClick={handleCheck} disabled={!input.trim()}>
               {t('exercises.session.check')}

@@ -3,19 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Typography, TextField, Button, Card, CardContent, Box, Alert } from '@mui/material';
 import type { SingularPluralItem } from '@cro/shared';
 
-import { normalizeAnswer } from '../../shared/lib/content-utils';
+import { normalizeAnswer, getTranslation } from '../../shared/lib/content-utils';
 import { useAppSelector } from '../../store';
-
-function getTranslation(item: SingularPluralItem, lang: string | null): string {
-  switch (lang) {
-    case 'RU':
-      return item.translationRu;
-    case 'UK':
-      return item.translationUk;
-    default:
-      return item.translationEn;
-  }
-}
 
 const CORRECT_DELAY = Number(import.meta.env.VITE_CORRECT_DELAY_MS) || 1000;
 const INCORRECT_DELAY = Number(import.meta.env.VITE_INCORRECT_DELAY_MS) || 2000;

@@ -3,23 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Typography, Button, Card, CardActionArea, Box } from '@mui/material';
 import type { FlashcardItem } from '@cro/shared';
 
+import { getTranslation } from '../../shared/lib/content-utils';
 import { useAppSelector } from '../../store';
 
 interface FlashcardExerciseProps {
   item: FlashcardItem;
   onAnswer: (answer: { itemId: string; givenAnswer: string; isCorrect: boolean }) => void;
   isLast: boolean;
-}
-
-function getTranslation(item: FlashcardItem, lang: string | null): string {
-  switch (lang) {
-    case 'RU':
-      return item.translationRu;
-    case 'UK':
-      return item.translationUk;
-    default:
-      return item.translationEn;
-  }
 }
 
 export function FlashcardExercise({ item, onAnswer, isLast: _isLast }: FlashcardExerciseProps) {
