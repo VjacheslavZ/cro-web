@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, LinearProgress, Box, Alert } from '@mui/material';
+import { Container, Typography, LinearProgress, Box, Alert, Button } from '@mui/material';
+import { MenuBook } from '@mui/icons-material';
 import type { ExerciseItem } from '@cro/shared';
 
 import { useAppDispatch } from '../../store';
@@ -10,11 +11,13 @@ import { fetchMe } from '../../api/auth';
 import { TypeTheAnswerExercise } from './TypeTheAnswerExercise';
 import { FlashcardExercise } from './FlashcardExercise';
 import { FillInBlankExercise } from './FillInBlankExercise';
+import { ExerciseRulesDialog } from './ExerciseRulesDialog';
 
 interface SessionLocationState {
   items: ExerciseItem[];
   exerciseType: string;
   totalQuestions: number;
+  rulesHtml: string | null;
 }
 
 interface SessionAnswer {
@@ -33,6 +36,7 @@ export function SessionPage() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<SessionAnswer[]>([]);
+  const [rulesOpen, setRulesOpen] = useState(false);
   const finishSession = useFinishSession();
 
   const handleAnswer = useCallback(
@@ -76,18 +80,30 @@ export function SessionPage() {
     );
   }
 
-  const { items, exerciseType } = state;
+  const { items, exerciseType, rulesHtml } = state;
   const currentItem = items[currentIndex];
   const progress = ((currentIndex + 1) / items.length) * 100;
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-        {t('exercises.session.progress', {
-          current: currentIndex + 1,
-          total: items.length,
-        })}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+        <Typography variant="body2" color="text.secondary">
+          {t('exercises.session.progress', {
+            current: currentIndex + 1,
+            total: items.length,
+          })}
+        </Typography>
+        {rulesHtml && (
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<MenuBook />}
+            onClick={() => setRulesOpen(true)}
+          >
+            {t('exercises.rules.show')}
+          </Button>
+        )}
+      </Box>
       <LinearProgress
         variant="determinate"
         value={progress}
@@ -126,6 +142,14 @@ export function SessionPage() {
           />
         )}
       </Box>
+
+      {rulesHtml && (
+        <ExerciseRulesDialog
+          open={rulesOpen}
+          onClose={() => setRulesOpen(false)}
+          rulesHtml={rulesHtml}
+        />
+      )}
     </Container>
   );
 }

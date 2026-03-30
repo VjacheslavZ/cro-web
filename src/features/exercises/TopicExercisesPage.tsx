@@ -66,6 +66,7 @@ export function TopicExercisesPage() {
             items: result.session.items,
             exerciseType: result.session.exerciseType,
             totalQuestions: result.session.totalQuestions,
+            rulesHtml: result.session.rulesHtml ?? null,
           },
         });
       }

@@ -85,11 +85,16 @@
       "exhausted": "You've completed all items in this topic!",
       "resetAndStart": "Reset & Start Again",
       "back": "Back"
+    },
+    "rules": {
+      "show": "Show Rules",
+      "title": "Rules"
     }
   },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
-    "retry": "Retry"
+    "retry": "Retry",
+    "close": "Close"
   }
 }

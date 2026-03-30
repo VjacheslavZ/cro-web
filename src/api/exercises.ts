@@ -11,6 +11,7 @@ export interface CreateSessionResponse {
     topicId: string;
     status: string;
     totalQuestions: number;
+    rulesHtml: string | null;
     items: ExerciseItem[];
   } | null;
 }
