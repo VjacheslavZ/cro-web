@@ -5,7 +5,16 @@
     "signInWithApple": "Sign in with Apple",
     "selectLanguage": "Select your native language",
     "continue": "Continue",
-    "loginFailed": "Login failed. Please try again."
+    "loginFailed": "Login failed. Please try again.",
+    "orDivider": "or",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "register": "Register",
+    "login": "Log in",
+    "switchToRegister": "Don't have an account? Register",
+    "switchToLogin": "Already have an account? Log in",
+    "registrationFailed": "Registration failed. Please try again."
   },
   "languages": {
     "russian": "Русский",

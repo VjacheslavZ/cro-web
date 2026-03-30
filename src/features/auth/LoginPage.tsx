@@ -4,12 +4,13 @@ import { LoadingButton } from '@mui/lab';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useTranslation } from 'react-i18next';
 import { Google as GoogleIcon } from '@mui/icons-material';
-import { Box, Typography, Container, Paper, Alert } from '@mui/material';
+import { Box, Typography, Container, Paper, Alert, Divider } from '@mui/material';
 
 import { useAppDispatch } from '../../store';
-import { setCredentials } from '../../store/auth.slice';
-import { apiClient } from '../../api/client';
+import { setCredentials, type UserProfile } from '../../store/auth.slice';
 import { setTokens } from '../../shared/lib/auth-storage';
+import { apiClient } from '../../api/client';
+import { EmailAuthForm } from './EmailAuthForm';
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -18,6 +19,27 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleAuthSuccess = (data: {
+    accessToken: string;
+    refreshToken: string;
+    user: UserProfile;
+    isNewUser: boolean;
+  }) => {
+    setTokens(data.accessToken, data.refreshToken);
+    dispatch(
+      setCredentials({
+        user: data.user,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      }),
+    );
+    if (data.isNewUser || !data.user.nativeLanguage) {
+      navigate('/language-select', { replace: true });
+    } else {
+      navigate('/', { replace: true });
+    }
+  };
+
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (codeResponse) => {
@@ -25,19 +47,7 @@ export function LoginPage() {
       setError(null);
       try {
         const { data } = await apiClient.post('/auth/google', { token: codeResponse.code });
-        setTokens(data.accessToken, data.refreshToken);
-        dispatch(
-          setCredentials({
-            user: data.user,
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
-          }),
-        );
-        if (data.isNewUser || !data.user.nativeLanguage) {
-          navigate('/language-select', { replace: true });
-        } else {
-          navigate('/', { replace: true });
-        }
+        handleAuthSuccess(data);
       } catch (err) {
         console.error('Google login failed:', err);
         setError(t('auth.loginFailed'));
@@ -84,6 +94,15 @@ export function LoginPage() {
               {t('auth.signInWithGoogle')}
             </LoadingButton>
           </Box>
+
+          <Divider sx={{ my: 3 }}>{t('auth.orDivider')}</Divider>
+
+          <EmailAuthForm
+            loading={loading}
+            setLoading={setLoading}
+            onSuccess={handleAuthSuccess}
+            onError={(msg) => setError(msg || null)}
+          />
         </Paper>
       </Box>
     </Container>

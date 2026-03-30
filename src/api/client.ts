@@ -5,7 +5,7 @@ import { clearAuth, setCredentials } from '../store/auth.slice';
 import { getAccessToken, getRefreshToken, setTokens } from '../shared/lib/auth-storage';
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_API_URL || `http://${window.location.hostname}:3000`,
   withCredentials: true,
 });
 

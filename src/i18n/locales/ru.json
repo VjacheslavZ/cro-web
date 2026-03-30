@@ -5,7 +5,16 @@
     "signInWithApple": "Войти через Apple",
     "selectLanguage": "Выберите ваш родной язык",
     "continue": "Продолжить",
-    "loginFailed": "Ошибка входа. Попробуйте снова."
+    "loginFailed": "Ошибка входа. Попробуйте снова.",
+    "orDivider": "или",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "name": "Имя",
+    "register": "Зарегистрироваться",
+    "login": "Войти",
+    "switchToRegister": "Нет аккаунта? Зарегистрируйтесь",
+    "switchToLogin": "Уже есть аккаунт? Войдите",
+    "registrationFailed": "Ошибка регистрации. Попробуйте снова."
   },
   "languages": {
     "russian": "Русский",
