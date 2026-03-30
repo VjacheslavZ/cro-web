@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, TextField, Button, Card, CardContent, Box, Alert } from '@mui/material';
 import type { FillInBlankItem } from '@cro/shared';
 
 import { normalizeAnswer, getTranslation } from '../../shared/lib/content-utils';
 import { useAppSelector } from '../../store';
+
+const CORRECT_DELAY = Number(import.meta.env.VITE_CORRECT_DELAY_MS) || 1000;
+const INCORRECT_DELAY = Number(import.meta.env.VITE_INCORRECT_DELAY_MS) || 2000;
 
 interface FillInBlankExerciseProps {
   item: FillInBlankItem;
@@ -16,35 +19,36 @@ function renderSentence(sentenceHr: string): string {
   return sentenceHr.replace('{{BLANK}}', '______');
 }
 
-export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerciseProps) {
+export function FillInBlankExercise({ item, onAnswer }: FillInBlankExerciseProps) {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.auth.user);
   const [input, setInput] = useState('');
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const handleCheck = () => {
     const correct = normalizeAnswer(input) === normalizeAnswer(item.blankAnswer);
     setIsCorrect(correct);
     setChecked(true);
-  };
-
-  const handleNext = () => {
-    onAnswer({
-      itemId: item.id,
-      givenAnswer: input,
-      isCorrect,
-    });
+    timerRef.current = setTimeout(
+      () => {
+        onAnswer({ itemId: item.id, givenAnswer: input, isCorrect: correct });
+      },
+      correct ? CORRECT_DELAY : INCORRECT_DELAY,
+    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
-    if (e.key === 'Enter') {
-      if (!checked) {
-        if (input.trim()) handleCheck();
-      } else {
-        handleNext();
-      }
+    if (e.key === 'Enter' && !checked && input.trim()) {
+      handleCheck();
     }
   };
 
@@ -76,26 +80,21 @@ export function FillInBlankExercise({ item, onAnswer, isLast }: FillInBlankExerc
           sx={{ mb: 2 }}
         />
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box width="80%">
-            {checked && (
-              <Alert severity={isCorrect ? 'success' : 'error'}>
-                {isCorrect
-                  ? t('exercises.fillInBlank.correct')
-                  : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
-              </Alert>
-            )}
-          </Box>
-          {!checked ? (
+        {checked && (
+          <Alert severity={isCorrect ? 'success' : 'error'} sx={{ mb: 2 }}>
+            {isCorrect
+              ? t('exercises.fillInBlank.correct')
+              : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
+          </Alert>
+        )}
+
+        {!checked && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant="contained" onClick={handleCheck} disabled={!input.trim()}>
               {t('exercises.session.check')}
             </Button>
-          ) : (
-            <Button variant="contained" onClick={handleNext}>
-              {isLast ? t('exercises.session.finish') : t('exercises.session.next')}
-            </Button>
-          )}
-        </Box>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );
