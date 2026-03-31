@@ -8,6 +8,8 @@ interface ResultsLocationState {
   totalQuestions: number;
   xpEarned: number;
   currentStreak: number;
+  topicId?: string;
+  exerciseType?: string;
 }
 
 export function SessionResultsPage() {
@@ -27,7 +29,7 @@ export function SessionResultsPage() {
     );
   }
 
-  const { correctAnswers, totalQuestions, xpEarned, currentStreak } = state;
+  const { correctAnswers, totalQuestions, xpEarned, currentStreak, topicId, exerciseType } = state;
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
@@ -59,9 +61,24 @@ export function SessionResultsPage() {
             </Typography>
           </Box>
 
-          <Button variant="contained" size="large" onClick={() => navigate('/exercises')}>
-            {t('exercises.results.backToExercises')}
-          </Button>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {topicId && exerciseType && (
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => navigate(`/exercises/${topicId}`, { replace: true })}
+              >
+                {t('exercises.results.continue')}
+              </Button>
+            )}
+            <Button
+              variant="outlined"
+              size="large"
+              onClick={() => navigate('/exercises', { replace: true })}
+            >
+              {t('exercises.results.backToExercises')}
+            </Button>
+          </Box>
         </CardContent>
       </Card>
     </Container>

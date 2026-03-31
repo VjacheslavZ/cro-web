@@ -59,6 +59,8 @@ export function SessionPage() {
               totalQuestions: result.totalQuestions,
               xpEarned: result.xpEarned,
               currentStreak: result.currentStreak,
+              topicId: state.items[0]?.topicId,
+              exerciseType: state.exerciseType,
             },
             replace: true,
           });

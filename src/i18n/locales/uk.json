@@ -88,7 +88,8 @@
       "score": "Результат: {{correct}} / {{total}}",
       "xpEarned": "+{{xp}} XP",
       "streak": "Поточна серія: {{streak}} днів",
-      "backToExercises": "Повернутися до вправ"
+      "continue": "Продовжити практику",
+      "backToExercises": "Обрати іншу вправу"
     },
     "cycle": {
       "exhausted": "Ви пройшли всі завдання у цій темі!",
