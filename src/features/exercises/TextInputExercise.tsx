@@ -37,6 +37,26 @@ export function TextInputExercise({
     };
   }, []);
 
+  useEffect(() => {
+    if (!checked || isCorrect) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleNext();
+      }
+    };
+
+    // Defer listener so it doesn't catch the same Enter that triggered handleCheck
+    const frameId = requestAnimationFrame(() => {
+      window.addEventListener('keydown', onKeyDown);
+    });
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [checked, isCorrect]);
+
   const handleCheck = () => {
     const correct = normalizeAnswer(input) === normalizeAnswer(correctAnswer);
     setIsCorrect(correct);
