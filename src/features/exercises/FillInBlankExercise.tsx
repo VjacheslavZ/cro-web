@@ -7,7 +7,6 @@ import { normalizeAnswer, getTranslation } from '../../shared/lib/content-utils'
 import { useAppSelector } from '../../store';
 
 const CORRECT_DELAY = Number(import.meta.env.VITE_CORRECT_DELAY_MS) || 1000;
-const INCORRECT_DELAY = Number(import.meta.env.VITE_INCORRECT_DELAY_MS) || 2000;
 
 interface FillInBlankExerciseProps {
   item: FillInBlankItem;
@@ -37,18 +36,25 @@ export function FillInBlankExercise({ item, onAnswer }: FillInBlankExerciseProps
     const correct = normalizeAnswer(input) === normalizeAnswer(item.blankAnswer);
     setIsCorrect(correct);
     setChecked(true);
-    timerRef.current = setTimeout(
-      () => {
+    if (correct) {
+      timerRef.current = setTimeout(() => {
         onAnswer({ itemId: item.id, givenAnswer: input, isCorrect: correct });
-      },
-      correct ? CORRECT_DELAY : INCORRECT_DELAY,
-    );
+      }, CORRECT_DELAY);
+    }
+  };
+
+  const handleNext = () => {
+    onAnswer({ itemId: item.id, givenAnswer: input, isCorrect });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
-    if (e.key === 'Enter' && !checked && input.trim()) {
-      handleCheck();
+    if (e.key === 'Enter') {
+      if (!checked && input.trim()) {
+        handleCheck();
+      } else if (checked && !isCorrect) {
+        handleNext();
+      }
     }
   };
 
@@ -80,21 +86,27 @@ export function FillInBlankExercise({ item, onAnswer }: FillInBlankExerciseProps
           sx={{ mb: 2 }}
         />
 
-        {checked && (
-          <Alert severity={isCorrect ? 'success' : 'error'} sx={{ mb: 2 }}>
-            {isCorrect
-              ? t('exercises.fillInBlank.correct')
-              : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
-          </Alert>
-        )}
-
-        {!checked && (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ width: isCorrect ? '100%' : '80%' }}>
+            {checked && (
+              <Alert severity={isCorrect ? 'success' : 'error'}>
+                {isCorrect
+                  ? t('exercises.fillInBlank.correct')
+                  : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
+              </Alert>
+            )}
+          </Box>
+          {!checked && (
             <Button variant="contained" onClick={handleCheck} disabled={!input.trim()}>
               {t('exercises.session.check')}
             </Button>
-          </Box>
-        )}
+          )}
+          {checked && !isCorrect && (
+            <Button variant="contained" onClick={handleNext}>
+              {t('exercises.session.next')}
+            </Button>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );
