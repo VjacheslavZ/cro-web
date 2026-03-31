@@ -93,7 +93,9 @@ export function TopicExercisesPage() {
     setCycleResetInfo(null);
   };
 
-  if (isLoading) {
+  const autoStartState = location.state as { autoStartExerciseType?: string } | null;
+
+  if (isLoading || autoStartState?.autoStartExerciseType) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
         <CircularProgress />
