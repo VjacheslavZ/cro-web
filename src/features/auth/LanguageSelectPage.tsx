@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store';
 import { setUser } from '../../store/auth.slice';
 import { apiClient } from '../../api/client';
+import i18n from '../../i18n';
 
 const languages = [
   { code: 'RU', label: 'Русский' },
@@ -21,6 +22,7 @@ export function LanguageSelectPage() {
     try {
       const { data } = await apiClient.patch('/users/me', { nativeLanguage });
       dispatch(setUser(data));
+      i18n.changeLanguage(nativeLanguage.toLowerCase());
       navigate('/', { replace: true });
     } catch (error) {
       console.error('Failed to set language:', error);

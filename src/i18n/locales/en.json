@@ -87,7 +87,8 @@
       "title": "Session Complete!",
       "score": "Score: {{correct}} / {{total}}",
       "xpEarned": "+{{xp}} XP",
-      "streak": "Current streak: {{streak}} days",
+      "streak_one": "Current streak: {{count}} day",
+      "streak_other": "Current streak: {{count}} days",
       "continue": "Continue practicing",
       "backToExercises": "Choose another exercise"
     },

@@ -9,6 +9,7 @@ import {
   Alert,
 } from '@mui/material';
 
+import i18n from '../../i18n';
 import { useAppSelector, useAppDispatch } from '../../store';
 import { setUser } from '../../store/auth.slice';
 import { apiClient } from '../../api/client';
@@ -34,6 +35,7 @@ export function SettingsPage() {
     try {
       const { data } = await apiClient.patch('/users/me', { nativeLanguage: value });
       dispatch(setUser(data));
+      i18n.changeLanguage(value.toLowerCase());
     } catch {
       setError(t('common.error'));
     } finally {

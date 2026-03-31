@@ -87,7 +87,9 @@
       "title": "Сесію завершено!",
       "score": "Результат: {{correct}} / {{total}}",
       "xpEarned": "+{{xp}} XP",
-      "streak": "Поточна серія: {{streak}} днів",
+      "streak_one": "Поточна серія: {{count}} день",
+      "streak_few": "Поточна серія: {{count}} дні",
+      "streak_many": "Поточна серія: {{count}} днів",
       "continue": "Продовжити практику",
       "backToExercises": "Обрати іншу вправу"
     },

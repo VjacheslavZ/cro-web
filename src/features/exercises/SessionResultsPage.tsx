@@ -57,7 +57,7 @@ export function SessionResultsPage() {
           >
             <LocalFireDepartment color="warning" />
             <Typography variant="h6">
-              {t('exercises.results.streak', { streak: currentStreak })}
+              {t('exercises.results.streak', { count: currentStreak })}
             </Typography>
           </Box>
 
