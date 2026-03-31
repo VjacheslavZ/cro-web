@@ -66,7 +66,12 @@ export function SessionResultsPage() {
               <Button
                 variant="contained"
                 size="large"
-                onClick={() => navigate(`/exercises/${topicId}`, { replace: true })}
+                onClick={() =>
+                  navigate(`/exercises/${topicId}`, {
+                    replace: true,
+                    state: { autoStartExerciseType: exerciseType },
+                  })
+                }
               >
                 {t('exercises.results.continue')}
               </Button>

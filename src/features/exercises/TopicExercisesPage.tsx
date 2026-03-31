@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   Container,
@@ -26,9 +26,11 @@ import { CycleResetDialog } from './CycleResetDialog';
 export function TopicExercisesPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { topicId } = useParams<{ topicId: string }>();
   const user = useAppSelector((state) => state.auth.user);
   const createSession = useCreateSession();
+  const autoStarted = useRef(false);
 
   const {
     data: topic,
@@ -74,6 +76,15 @@ export function TopicExercisesPage() {
       // Error is handled by mutation state
     }
   };
+
+  useEffect(() => {
+    const state = location.state as { autoStartExerciseType?: string } | null;
+    if (state?.autoStartExerciseType && !autoStarted.current) {
+      autoStarted.current = true;
+      navigate(location.pathname, { replace: true, state: null });
+      handleStartExercise(state.autoStartExerciseType);
+    }
+  }, [location.state]);
 
   const handleCycleReset = () => {
     if (cycleResetInfo) {

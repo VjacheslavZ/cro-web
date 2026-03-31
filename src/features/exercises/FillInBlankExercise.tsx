@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography, TextField, Button, Card, CardContent, Box, Alert } from '@mui/material';
+import { Typography } from '@mui/material';
 import type { FillInBlankItem } from '@cro/shared';
 
-import { normalizeAnswer, getTranslation } from '../../shared/lib/content-utils';
+import { getTranslation } from '../../shared/lib/content-utils';
 import { useAppSelector } from '../../store';
-
-const CORRECT_DELAY = Number(import.meta.env.VITE_CORRECT_DELAY_MS) || 1000;
+import { TextInputExercise } from './TextInputExercise';
 
 interface FillInBlankExerciseProps {
   item: FillInBlankItem;
@@ -21,93 +19,31 @@ function renderSentence(sentenceHr: string): string {
 export function FillInBlankExercise({ item, onAnswer }: FillInBlankExerciseProps) {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.auth.user);
-  const [input, setInput] = useState('');
-  const [checked, setChecked] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  const handleCheck = () => {
-    const correct = normalizeAnswer(input) === normalizeAnswer(item.blankAnswer);
-    setIsCorrect(correct);
-    setChecked(true);
-    if (correct) {
-      timerRef.current = setTimeout(() => {
-        onAnswer({ itemId: item.id, givenAnswer: input, isCorrect: correct });
-      }, CORRECT_DELAY);
-    }
-  };
-
-  const handleNext = () => {
-    onAnswer({ itemId: item.id, givenAnswer: input, isCorrect });
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.nativeEvent.isComposing) return;
-    if (e.key === 'Enter') {
-      if (!checked && input.trim()) {
-        handleCheck();
-      } else if (checked && !isCorrect) {
-        handleNext();
-      }
-    }
-  };
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          {t('exercises.fillInBlank.title')}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {t('exercises.fillInBlank.instruction')}
-        </Typography>
-
-        <Typography variant="h5" sx={{ mb: 1, textAlign: 'center' }}>
-          {renderSentence(item.sentenceHr)}
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
-          {getTranslation(item, user?.nativeLanguage ?? null)}
-        </Typography>
-
-        <TextField
-          fullWidth
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={t('exercises.fillInBlank.placeholder')}
-          disabled={checked}
-          autoFocus
-          sx={{ mb: 2 }}
-        />
-
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box sx={{ width: isCorrect ? '100%' : '80%' }}>
-            {checked && (
-              <Alert severity={isCorrect ? 'success' : 'error'}>
-                {isCorrect
-                  ? t('exercises.fillInBlank.correct')
-                  : t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
-              </Alert>
-            )}
-          </Box>
-          {!checked && (
-            <Button variant="contained" onClick={handleCheck} disabled={!input.trim()}>
-              {t('exercises.session.check')}
-            </Button>
-          )}
-          {checked && !isCorrect && (
-            <Button variant="contained" onClick={handleNext}>
-              {t('exercises.session.next')}
-            </Button>
-          )}
-        </Box>
-      </CardContent>
-    </Card>
+    <TextInputExercise
+      itemId={item.id}
+      correctAnswer={item.blankAnswer}
+      placeholder={t('exercises.fillInBlank.placeholder')}
+      correctMessage={t('exercises.fillInBlank.correct')}
+      incorrectMessage={t('exercises.fillInBlank.incorrect', { answer: item.blankAnswer })}
+      onAnswer={onAnswer}
+      prompt={
+        <>
+          <Typography variant="h6" gutterBottom>
+            {t('exercises.fillInBlank.title')}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {t('exercises.fillInBlank.instruction')}
+          </Typography>
+          <Typography variant="h5" sx={{ mb: 1, textAlign: 'center' }}>
+            {renderSentence(item.sentenceHr)}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+            {getTranslation(item, user?.nativeLanguage ?? null)}
+          </Typography>
+        </>
+      }
+    />
   );
 }
