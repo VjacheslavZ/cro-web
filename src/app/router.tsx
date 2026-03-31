@@ -17,6 +17,7 @@ import { ExercisesPage } from '../features/exercises/ExercisesPage';
 import { TopicExercisesPage } from '../features/exercises/TopicExercisesPage';
 import { SessionPage } from '../features/exercises/SessionPage';
 import { SessionResultsPage } from '../features/exercises/SessionResultsPage';
+import { SettingsPage } from '../features/settings/SettingsPage';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -129,6 +130,16 @@ export function AppRouter() {
                   <PrivateRoute>
                     <LanguageGuard>
                       <div>Collections (placeholder)</div>
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <SettingsPage />
                     </LanguageGuard>
                   </PrivateRoute>
                 }
