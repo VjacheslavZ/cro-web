@@ -33,6 +33,24 @@ export function getTranslation(item: TranslatableItem, lang: string | null): str
   }
 }
 
+interface RulesItem {
+  rulesHtmlHr: string | null;
+  rulesHtmlRu: string | null;
+  rulesHtmlUk: string | null;
+  rulesHtmlEn: string | null;
+}
+
+export function getRulesHtml(item: RulesItem, lang: string | null): string | null {
+  switch (lang) {
+    case 'RU':
+      return item.rulesHtmlRu ?? item.rulesHtmlHr ?? null;
+    case 'UK':
+      return item.rulesHtmlUk ?? item.rulesHtmlHr ?? null;
+    default:
+      return item.rulesHtmlEn ?? item.rulesHtmlHr ?? null;
+  }
+}
+
 export function normalizeAnswer(input: string): string {
   return input.trim().toLowerCase().normalize('NFC');
 }

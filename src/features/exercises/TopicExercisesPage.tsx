@@ -19,7 +19,7 @@ import { useAppSelector } from '../../store';
 import { apiClient } from '../../api/client';
 import { useCreateSession } from '../../api/exercises';
 import type { CreateSessionResponse } from '../../api/exercises';
-import { getLocalizedName } from '../../shared/lib/content-utils';
+import { getLocalizedName, getRulesHtml } from '../../shared/lib/content-utils';
 import { getExerciseTypeLabel } from '../../shared/lib/exercise-utils';
 import { CycleResetDialog } from './CycleResetDialog';
 
@@ -66,7 +66,7 @@ export function TopicExercisesPage() {
             items: result.session.items,
             exerciseType: result.session.exerciseType,
             totalQuestions: result.session.totalQuestions,
-            rulesHtml: result.session.rulesHtml ?? null,
+            rulesHtml: getRulesHtml(result.session, user?.nativeLanguage ?? null),
           },
         });
       }
