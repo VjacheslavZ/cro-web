@@ -107,6 +107,58 @@
     "title": "Налаштування",
     "nativeLanguage": "Рідна мова"
   },
+  "dictionary": {
+    "title": "Мій словник",
+    "addWord": "Додати слово",
+    "searchPlaceholder": "Пошук слів...",
+    "noWords": "Ваш словник порожній. Додайте перше слово!",
+    "word": "Хорватське слово",
+    "translation": "Переклад",
+    "collection": "Колекція",
+    "progress": "Прогрес",
+    "delete": "Видалити",
+    "addWordModal": {
+      "title": "Додати слово",
+      "wordLabel": "Хорватське слово",
+      "translationLabel": "Переклад",
+      "collectionLabel": "Колекція (необов'язково)",
+      "suggestions": "Пропозиції від інших користувачів",
+      "noSuggestions": "Пропозицій не знайдено",
+      "add": "Додати",
+      "cancel": "Скасувати",
+      "duplicate": "Це слово вже є у вашому словнику"
+    },
+    "collections": {
+      "title": "Колекції",
+      "predefined": "Готові колекції",
+      "personal": "Мої колекції",
+      "createCollection": "Створити колекцію",
+      "name": "Назва",
+      "description": "Опис (необов'язково)",
+      "wordCount_one": "{{count}} слово",
+      "wordCount_few": "{{count}} слова",
+      "wordCount_many": "{{count}} слів",
+      "noCollections": "Колекцій поки немає",
+      "edit": "Редагувати",
+      "delete": "Видалити",
+      "create": "Створити",
+      "save": "Зберегти"
+    },
+    "practice": {
+      "start": "Практика",
+      "instruction": "Введіть переклад:",
+      "placeholder": "Введіть переклад...",
+      "correct": "Правильно!",
+      "incorrect": "Неправильно. Правильна відповідь: {{answer}}",
+      "noWords": "Спочатку додайте слова до словника, щоб почати практику",
+      "results": "Практику завершено!",
+      "backToDictionary": "Назад до словника",
+      "practiceAgain": "Практикувати знову"
+    },
+    "assignCollection": "Призначити колекцію",
+    "unassign": "Прибрати з колекції",
+    "selected": "{{count}} обрано"
+  },
   "common": {
     "loading": "Завантаження...",
     "error": "Сталася помилка",

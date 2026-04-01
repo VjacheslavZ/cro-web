@@ -26,7 +26,7 @@
     "exercises": "Exercises",
     "dictionary": "Dictionary",
     "myDictionary": "My dictionary",
-    "collections": "Мої колекції",
+    "collections": "Collections",
     "profile": "Profile"
   },
   "header": {
@@ -105,6 +105,57 @@
   "settings": {
     "title": "Settings",
     "nativeLanguage": "Native language"
+  },
+  "dictionary": {
+    "title": "My Dictionary",
+    "addWord": "Add Word",
+    "searchPlaceholder": "Search words...",
+    "noWords": "Your dictionary is empty. Add your first word!",
+    "word": "Croatian word",
+    "translation": "Translation",
+    "collection": "Collection",
+    "progress": "Progress",
+    "delete": "Delete",
+    "addWordModal": {
+      "title": "Add Word",
+      "wordLabel": "Croatian word",
+      "translationLabel": "Translation",
+      "collectionLabel": "Collection (optional)",
+      "suggestions": "Suggestions from other users",
+      "noSuggestions": "No suggestions found",
+      "add": "Add",
+      "cancel": "Cancel",
+      "duplicate": "This word is already in your dictionary"
+    },
+    "collections": {
+      "title": "Collections",
+      "predefined": "Predefined Collections",
+      "personal": "My Collections",
+      "createCollection": "Create Collection",
+      "name": "Name",
+      "description": "Description (optional)",
+      "wordCount_one": "{{count}} word",
+      "wordCount_other": "{{count}} words",
+      "noCollections": "No collections yet",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create",
+      "save": "Save"
+    },
+    "practice": {
+      "start": "Practice",
+      "instruction": "Type the translation:",
+      "placeholder": "Enter translation...",
+      "correct": "Correct!",
+      "incorrect": "Incorrect. The correct answer is: {{answer}}",
+      "noWords": "Add words to your dictionary first to start practicing",
+      "results": "Practice Complete!",
+      "backToDictionary": "Back to Dictionary",
+      "practiceAgain": "Practice Again"
+    },
+    "assignCollection": "Assign to Collection",
+    "unassign": "Remove from collection",
+    "selected": "{{count}} selected"
   },
   "common": {
     "loading": "Loading...",

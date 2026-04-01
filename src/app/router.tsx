@@ -18,6 +18,10 @@ import { TopicExercisesPage } from '../features/exercises/TopicExercisesPage';
 import { SessionPage } from '../features/exercises/SessionPage';
 import { SessionResultsPage } from '../features/exercises/SessionResultsPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
+import { MyDictionaryPage } from '../features/dictionary/MyDictionaryPage';
+import { CollectionsPage } from '../features/dictionary/CollectionsPage';
+import { DictionaryPracticePage } from '../features/dictionary/DictionaryPracticePage';
+import { DictionaryPracticeResultsPage } from '../features/dictionary/DictionaryPracticeResultsPage';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -119,7 +123,7 @@ export function AppRouter() {
                 element={
                   <PrivateRoute>
                     <LanguageGuard>
-                      <div>My Dictionary (placeholder)</div>
+                      <MyDictionaryPage />
                     </LanguageGuard>
                   </PrivateRoute>
                 }
@@ -129,7 +133,27 @@ export function AppRouter() {
                 element={
                   <PrivateRoute>
                     <LanguageGuard>
-                      <div>Collections (placeholder)</div>
+                      <CollectionsPage />
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/dictionary/practice/:sessionId"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <DictionaryPracticePage />
+                    </LanguageGuard>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/dictionary/practice/results/:sessionId"
+                element={
+                  <PrivateRoute>
+                    <LanguageGuard>
+                      <DictionaryPracticeResultsPage />
                     </LanguageGuard>
                   </PrivateRoute>
                 }

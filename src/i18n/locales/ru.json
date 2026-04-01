@@ -107,6 +107,58 @@
     "title": "Настройки",
     "nativeLanguage": "Родной язык"
   },
+  "dictionary": {
+    "title": "Мой словарь",
+    "addWord": "Добавить слово",
+    "searchPlaceholder": "Поиск слов...",
+    "noWords": "Ваш словарь пуст. Добавьте первое слово!",
+    "word": "Хорватское слово",
+    "translation": "Перевод",
+    "collection": "Коллекция",
+    "progress": "Прогресс",
+    "delete": "Удалить",
+    "addWordModal": {
+      "title": "Добавить слово",
+      "wordLabel": "Хорватское слово",
+      "translationLabel": "Перевод",
+      "collectionLabel": "Коллекция (необязательно)",
+      "suggestions": "Предложения от других пользователей",
+      "noSuggestions": "Предложений не найдено",
+      "add": "Добавить",
+      "cancel": "Отмена",
+      "duplicate": "Это слово уже есть в вашем словаре"
+    },
+    "collections": {
+      "title": "Коллекции",
+      "predefined": "Готовые коллекции",
+      "personal": "Мои коллекции",
+      "createCollection": "Создать коллекцию",
+      "name": "Название",
+      "description": "Описание (необязательно)",
+      "wordCount_one": "{{count}} слово",
+      "wordCount_few": "{{count}} слова",
+      "wordCount_many": "{{count}} слов",
+      "noCollections": "Коллекций пока нет",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "create": "Создать",
+      "save": "Сохранить"
+    },
+    "practice": {
+      "start": "Практика",
+      "instruction": "Введите перевод:",
+      "placeholder": "Введите перевод...",
+      "correct": "Правильно!",
+      "incorrect": "Неправильно. Правильный ответ: {{answer}}",
+      "noWords": "Сначала добавьте слова в словарь, чтобы начать практику",
+      "results": "Практика завершена!",
+      "backToDictionary": "Назад к словарю",
+      "practiceAgain": "Практиковать снова"
+    },
+    "assignCollection": "Назначить коллекцию",
+    "unassign": "Убрать из коллекции",
+    "selected": "{{count}} выбрано"
+  },
   "common": {
     "loading": "Загрузка...",
     "error": "Произошла ошибка",
